@@ -1,6 +1,6 @@
 # reflux-state-mixin
 
-Mixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them to have `state`, similar to React components. 
+Mixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them to have `state` and `setState()`, similar to React components. 
 
 
 ## Usage
