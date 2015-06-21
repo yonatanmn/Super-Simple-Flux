@@ -40,7 +40,9 @@ var DogsComponent = React.createClass({
     mixins:[Reflux.ListenerMixin],
     getInitialState: function (){
       return({
-          dogs:AnimalStore.state.dogs    
+          dogs:AnimalStore.state.dogs 
+          //Treat store.state as immutable data - same as you treat component.state - 
+          //you could use it inside a component, but never change it's value - only with setState()    
       })
     },
     componentDidMount: function(){
