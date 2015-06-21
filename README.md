@@ -1,13 +1,13 @@
 # reflux-state-mixin
 
-Mixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them to have `state`, `setState()`, and `getInitialState()`, similar to React components. 
+Mixin for [reflux](https://www.npmjs.com/packages/reflux) Stores, enabling them to have `state`, `setState()`, and `getInitialState()`, similar to React Components. 
 
 
 ## Usage
 
 ```javascript
 
-// myStore.js
+// AnimalStore.js
 var Reflux = require('reflux');
 var StateMixin = require('reflux-state-mixin')(Reflux); //call this mixin like that
 var Actions = require('./../actions/AnimalsActions'); 
@@ -33,7 +33,7 @@ var AnimalStore = module.exports = Reflux.createStore({
 ```
 
 ```javascript
-
+//DogsComponent.js
 var AnimalStore = require('./AnimalStore.js');
 
 var DogsComponent = React.createClass({
@@ -73,7 +73,7 @@ $ npm install reflux-state-mixin --save
 For any `setState()` the entire store is triggering (regardless of changes), allowing any Component or other Store to listen to the entire Store's state.
 
 ## acknowledgments
-This mixin is combination of two other mixins - 
+This mixin is sort of a combination of two other mixins - 
 [triggerables-mixin](https://github.com/jesstelford/reflux-triggerable-mixin), a really useful mixin for controlling the trigger of the stores. Also see [this](https://github.com/spoike/refluxjs/issues/158) for details. 
 And [state-mixin](https://github.com/spoike/refluxjs/issues/290) 
 
