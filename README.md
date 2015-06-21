@@ -1,6 +1,6 @@
 # reflux-state-mixin
 
-Mixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them to have `state` and `setState()`, similar to React components. 
+Mixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them to have `state`, `setState()`, and `getInitialState()`, similar to React components. 
 
 
 ## Usage
@@ -9,14 +9,14 @@ Mixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them 
 
 // myStore.js
 var Reflux = require('reflux');
-var StateMixin = require('reflux-state-mixin')(Reflux);
+var StateMixin = require('reflux-state-mixin')(Reflux); //call this mixin like that
 var Actions = require('./../actions/AnimalsActions'); 
 
 var AnimalStore = module.exports = Reflux.createStore({
   mixins: [StateMixin],
-  listenables: Actions,
+  listenables: Actions, //or any other way of listening... 
 
-  getInitialState(){
+  getInitialState(){      
     return{
       dogs:5,
       cats:3
@@ -24,7 +24,9 @@ var AnimalStore = module.exports = Reflux.createStore({
   },
 
   onNewDogBorn: function() {
-        this.setState({dogs:this.state.dogs+1})
+        this.setState({dogs:this.state.dogs+1})  
+        //just like in a Component.
+        //this will `trigger()` this state, similar to `render()` in a Component 
   }
 
 });
@@ -38,16 +40,17 @@ var DogsComponent = React.createClass({
     mixins:[Reflux.ListenerMixin],
     getInitialState: function (){
       return({
-          dogs:AnimalStore.state.dogs
+          dogs:AnimalStore.state.dogs    
       })
     },
     componentDidMount: function(){
-        this.listenTo(AnimalStore.dogs,this.updateDogs);
+        this.listenTo(AnimalStore.dogs,this.updateDogs); 
+        //this Component has no internest in `cats` or any other animal, so it listents to `dogs` changes only
+        //of course it could have listen to the entire AnimalStore's state
     },
     updateDogs: function(dogs){
-        console.log('comp action')
-        console.log(dogs)
         this.setState({dogs:dogs});
+        //now we have auto-synchronization with `dogs`, with no need for specific logic for that
     },
     render: function () {
         return (<div><p>We have {this.state.dogs} dogs</p></div>);
