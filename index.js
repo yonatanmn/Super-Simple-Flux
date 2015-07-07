@@ -35,7 +35,7 @@ module.exports = function stateMixin(Reflux) {
         }
       }
       this.state = update(this.state, {$merge: state});
-      this.trigger(state);
+      this.trigger(this.state);
     },
 
     init: function () {
