@@ -1,44 +1,7 @@
 'use strict';
 
 var update = require('react/addons').addons.update;
-
-var _ = {}
-
-_.object = function (keys, vals) {
-  var o = {}, i = 0;
-  for (; i < keys.length; i++) {
-    o[keys[i]] = vals[i];
-  }
-  return o;
-};
-
-_.isObject = function (obj) {
-  var type = typeof obj;
-  return type === 'function' || type === 'object' && !!obj;
-};
-
-_.extend = function (obj) {
-  if (!_.isObject(obj)) {
-    return obj;
-  }
-  var source, prop;
-  for (var i = 1, length = arguments.length; i < length; i++) {
-    source = arguments[i];
-    for (prop in source) {
-      if (Object.getOwnPropertyDescriptor && Object.defineProperty) {
-        var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
-        Object.defineProperty(obj, prop, propertyDescriptor);
-      } else {
-        obj[prop] = source[prop];
-      }
-    }
-  }
-  return obj;
-};
-
-_.isFunction = function (value) {
-  return typeof value === 'function';
-};
+var utils = require('./utils.js');
 
 /**
  * Creates the mixin, ready for use in a store
@@ -79,7 +42,7 @@ module.exports = function stateMixin(Reflux) {
       if (changed) {
         this.state = update(this.state, {$merge: state});
 
-        if (_.isFunction(this.storeDidUpdate)) {
+        if (utils.isFunction(this.storeDidUpdate)) {
           this.storeDidUpdate(prevState);
         }
 
@@ -89,7 +52,7 @@ module.exports = function stateMixin(Reflux) {
     },
 
     init: function () {
-      if (_.isFunction(this.getInitialState)) {
+      if (utils.isFunction(this.getInitialState)) {
         this.state = this.getInitialState();
         for (var key in this.state) {
           if (this.state.hasOwnProperty(key)) {
@@ -102,21 +65,21 @@ module.exports = function stateMixin(Reflux) {
     connect: function (store, key) {
       return {
         getInitialState: function () {
-          if (!_.isFunction(store.getInitialState)) {
+          if (!utils.isFunction(store.getInitialState)) {
             return {};
           } else if (key === undefined) {
             return store.state;
           } else {
-            return _.object([key], [store.state[key]]);
+            return utils.object([key], [store.state[key]]);
           }
         },
         componentDidMount: function () {
-          _.extend(this, Reflux.ListenerMethods);
+          utils.extend(this, Reflux.ListenerMethods);
           var noKey = key === undefined;
           var me = this,
               cb = (noKey ? this.setState : function (v) {
                 if (typeof me.isMounted === "undefined" || me.isMounted() === true) {
-                  me.setState(_.object([key], [v]));
+                  me.setState(utils.object([key], [v]));
                 }
               }),
               listener = noKey ? store : store[key];
