@@ -14,7 +14,7 @@ utils.isObject = function (obj) {
 };
 
 utils.extend = function (obj) {
-    if (!_.isObject(obj)) {
+    if (!utils.isObject(obj)) {
         return obj;
     }
     var source, prop;
