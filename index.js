@@ -26,27 +26,38 @@ module.exports = function stateMixin(Reflux) {
   }
 
   return {
-    setState: function (state) {
+
+    setState: function (newState) {
       var changed = false;
       var prevState = update({}, {$merge: this.state});
-
-      for (var key in state) {
-        if (state.hasOwnProperty(key)) {
-          if (this.state[key] !== state[key]) {
-            this[key].trigger(state[key]);
+      var statesToTrigger = [];
+      for (var key in newState) {
+        if (newState.hasOwnProperty(key)) {
+          if (this.state[key] !== newState[key]) {
+            this.state[key] = newState[key];
+            statesToTrigger.push(key);
             changed = true;
           }
         }
       }
 
       if (changed) {
-        this.state = update(this.state, {$merge: state});
+        if (utils.isFunction(this.shouldStoreUpdate)) {
+          if (!this.shouldStoreUpdate(prevState)) {
+            return;
+          }
+        }
+
+        for (var index in statesToTrigger) {
+          key = statesToTrigger[index];
+          this[key].trigger(newState[key]);
+        }
+
+        this.trigger(this.state);
 
         if (utils.isFunction(this.storeDidUpdate)) {
           this.storeDidUpdate(prevState);
         }
-
-        this.trigger(this.state);
       }
 
     },
