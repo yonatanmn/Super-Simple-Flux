@@ -42,8 +42,7 @@ module.exports = function stateMixin(Reflux) {
       }
 
       if (changed) {
-        if (utils.isFunction(this.shouldStoreUpdate)) {
-          if (!this.shouldStoreUpdate(prevState)) {
+        if (utils.isFunction(this.shouldStoreUpdate) && !this.shouldStoreUpdate(prevState)) {
             return;
           }
         }
