@@ -16,13 +16,14 @@ module.exports = function stateMixin(Reflux) {
   }
 
   function attachAction(options, actionName) {
-    if (this[actionName]) {
+    this.__actions__ = this.__actions__ || {};
+    if (this.__actions__[actionName]) {
       console.warn(
           'Not attaching event ' + actionName + '; key already exists'
       );
       return;
     }
-    this[actionName] = Reflux.createAction(options);
+    this.__actions__[actionName] = Reflux.createAction(options);
   }
 
   return {
@@ -33,7 +34,7 @@ module.exports = function stateMixin(Reflux) {
       for (var key in state) {
         if (state.hasOwnProperty(key)) {
           if (this.state[key] !== state[key]) {
-            this[key].trigger(state[key]);
+            this.__actions__[key].trigger(state[key]);
             changed = true;
           }
         }
@@ -82,7 +83,7 @@ module.exports = function stateMixin(Reflux) {
                   me.setState(utils.object([key], [v]));
                 }
               }),
-              listener = noKey ? store : store[key];
+              listener = noKey ? store : store.__actions__[key];
           this.listenTo(listener, cb);
         },
         componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
@@ -90,5 +91,3 @@ module.exports = function stateMixin(Reflux) {
     }
   }
 };
-
-
