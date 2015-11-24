@@ -15,13 +15,13 @@ module.exports = function stateMixin(Reflux) {
   }
 
   function attachAction(options, actionName) {
-    if (this[actionName]) {
+    if (this.stateActions[actionName]) {
       console.warn(
           'Not attaching event ' + actionName + '; key already exists'
       );
       return;
     }
-    this[actionName] = Reflux.createAction(options);
+    this.stateActions[actionName] = Reflux.createAction(options);
   }
 
   return {
@@ -32,7 +32,7 @@ module.exports = function stateMixin(Reflux) {
       for (var key in state) {
         if (state.hasOwnProperty(key)) {
           if (this.state[key] !== state[key]) {
-            this[key].trigger(state[key]);
+            this.stateActions[key].trigger(state[key]);
             changed = true;
           }
         }
@@ -53,6 +53,7 @@ module.exports = function stateMixin(Reflux) {
     init: function () {
       if (utils.isFunction(this.getInitialState)) {
         this.state = this.getInitialState();
+        this.stateActions = {};
         for (var key in this.state) {
           if (this.state.hasOwnProperty(key)) {
             attachAction.call(this, this.state[key], key);
@@ -81,7 +82,7 @@ module.exports = function stateMixin(Reflux) {
                   me.setState(utils.object([key], [v]));
                 }
               }),
-              listener = noKey ? store : store[key];
+              listener = noKey ? store : store.stateActions[key];
           this.listenTo(listener, cb);
         },
         componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
