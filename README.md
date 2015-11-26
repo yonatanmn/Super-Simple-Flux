@@ -1,4 +1,4 @@
-# Super simple flux 
+# Super Simple Flux 
 
 ## making Flux to look as pretty as React
 
