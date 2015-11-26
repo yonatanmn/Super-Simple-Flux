@@ -21,6 +21,8 @@ So, the requirements for an API like this are straight forward:
 6. Flux Actions should only notify a Store - do something - and should be blind to what the Store is actually doing - exactly the same as `onChange` from DOM to Component
 
 That's the API.
+
+### implementations
 Now the implementation could be done any way you want. With Redux, as a new flux library or any other way.
 Here I present a mixin for Reflux that's working really nice, but feel free to add other implementations. 
 
@@ -30,7 +32,7 @@ Here I present a mixin for Reflux that's working really nice, but feel free to a
 
 ## reflux-state-mixin
 
-Mixins for [reflux](https://www.npmjs.com/packages/reflux)
+Mixins for [reflux](https://www.npmjs.com/packages/reflux), to enable SSF (super simple flux) API
 
 
 ### Installation
