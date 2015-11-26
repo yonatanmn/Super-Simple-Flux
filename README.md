@@ -20,7 +20,7 @@ So, the requirements for an API like this are straight forward:
 5. There's an easy way to declare subscriptions of Components to Store's state (or to a specific property of state in Store). Something like `Component.connectTo(Store.someState)`, think about `<input value={this.state.text}/>` for Components.
 6. Flux Actions should only notify a Store - do something - and should be blind to what the Store is actually doing - exactly the same as `onChange` from DOM to Component
 
-That's the API.
+That's all.
 
 ### implementations
 Now the implementation could be done any way you want. With Redux, as a new flux library or any other way.
