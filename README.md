@@ -1,6 +1,6 @@
 # Super Simple Flux 
 
-## making Flux to look as pretty as React
+## making Flux look as pretty as React
 
 So - what's this all about? 
 
