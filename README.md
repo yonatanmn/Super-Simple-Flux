@@ -24,7 +24,9 @@ That's the API.
 
 ### implementations
 Now the implementation could be done any way you want. With Redux, as a new flux library or any other way.
-Here I present a mixin for Reflux that's working really nice, but feel free to add other implementations. 
+
+Here I present a mixin for **Reflux** that's working really nice (so nice that according to npm stats, every second reflux user is downloading this), but feel free to add other implementations. 
+I really hope someone will implement this in **Redux**! 
 
 
 =================================================================================================
