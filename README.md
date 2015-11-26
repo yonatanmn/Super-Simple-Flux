@@ -4,7 +4,7 @@
 
 So - what's this all about? 
 
-React is cool - you use this magic `Component` and suddenly all of your view is controlled and changed automatically.
+React is cool - you use this magic `Component` class and jsx, and suddenly all of your view is controlled and changed automatically.
 But Flux, on the other hand - is not cool at all, no real code, no api, just good architecture. So then good people said - let's build a nice API for Flux, and suddenly: Redux, Reflux, Alt, Fluxxor etc.
 
 But, If we already have such a great API for React, why can't we do the same with Flux - Stores will control components, the same way Component controls DOM.  You just say the magic word - `setState` - and every thing just happens immediately!
