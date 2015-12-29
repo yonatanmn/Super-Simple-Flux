@@ -27,7 +27,7 @@
   "license": "ISC",
   "dependencies": {},
   "peerDependencies": {
-    "reflux": ">=0.2.5 <0.4.0"
+    "reflux": ">=0.2.1 <0.4.0"
   },
   "homepage": "https://github.com/yonatanmn/reflux-state-mixin",
   "readmeFilename": "README.md",
