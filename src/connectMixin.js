@@ -19,9 +19,9 @@ export default function (store, key) {
       let setStateFunc = state => {
         let newState = noKey ? state : object([key], [state]);
 
-        if (typeof componentInstance.isMounted === "undefined" || componentInstance.isMounted() === true) {
+        // if (typeof componentInstance.isMounted === "undefined" || componentInstance.isMounted() === true) {
           componentInstance.setState(newState);
-        }
+        // }
       };
 
       let listener = noKey ? store : store[key];
